@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  <script src="js/script.js"></script>
+  <script src="lib/bootstrap-5.0.1-dist/js/bootstrap.js"></script>
+  <script src="lib/jquery-3.6.0.js"></script>
+
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="lib/bootstrap-5.0.1-dist/css/bootstrap.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 d-grid">
+        <button class="btn btn-primary btn-block" id="btn">Start</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div id="add"></div>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  $(document).ready(function($){
+  $('#btn').click(function(){
+    $('#btn').attr('disabled','disabled');
+    cavalo();
+  });
+});
+function cavalo(){
+  const letra = ['B', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'];
+  const certo = ['C', 'A', 'V', 'L', 'O'];
+  const selected = [];
+  const btn = [];
+  const btnCerto = [];
+  var inputShow = '';
+  $('#add').append("<div class='col-sm-12'><img src='components/img/Cavav.png' height='250' width='221' style='margin-left:4pc;'></div>");
+    for(var i in letra){
+      btn.push(Math.floor(Math.random() * letra.length));
+      $('#add').append("<div class='col-sm-1' style='display: inline;'><button class='btn btn-primary letra' id='"+letra[btn[i]]+"' style='margin-left:2pc;'>"+letra[btn[i]]+"</button></div>");
+    }
+    $('#add').append("<div class='col-sm-1' style='display: inline;'><button class='btn btn-primary letra' id='"+certo[4]+"' style='margin-left:2pc;'>"+certo[4]+"</button></div>");
+    $('#add').append("<div class='col-sm-1' style='display: inline;'><button class='btn btn-primary letra' id='"+certo[1]+"' style='margin-left:2pc;'>"+certo[1]+"</button></div>");
+    $('#add').append("<div class='col-sm-1' style='display: inline;'><button class='btn btn-primary letra' id='"+certo[2]+"' style='margin-left:2pc;'>"+certo[2]+"</button></div>");
+    $('#add').append("<div class='col-sm-1' style='display: inline;'><button class='btn btn-primary letra' id='"+certo[3]+"' style='margin-left:2pc;'>"+certo[3]+"</button></div>");
+    $('#add').append("<div class='col-sm-1' style='display: inline;'><button class='btn btn-primary letra' id='"+certo[0]+"' style='margin-left:2pc;'>"+certo[0]+"</button></div>");
+    $('#add').append("<br><div class='row'><div class='col-sm-12 input-group input-group-sm mb-3'><input type='text' class='form-control' id='showIn' value=' ' readonly=''></div></div>");
+    $('#add').append('<br><div class="row"><div class="col-sm-12 d-grid"><button class="btn btn-primary btn-block" id="btnAnswer">Responder</button></div></div>');
+      $(".letra").click(function(){
+        navigator.notification.beep(1);
+        var btnId = $(this).attr("id");
+        selected.push(btnId);
+        var separador = ",";
+        inputShow = selected[0];
+        selected.shift();
+        $("#showIn").attr('value', function(){return $(this).attr("value")+inputShow});
+      });
+      $("#btnAnswer").click(function(){
+        if($("#showIn").attr('value') == ' CAVALO'){
+          alert("Correto");
+          $("#add").html("");
+          $('#btn').attr('disabled',null);
+        }
+        else{
+          navigator.vibrate(500);
+        }
+        $("#showIn").attr('value', " ");
+      });
+}
+function show(letra, btn){
+  }
+</script>
+</html>
